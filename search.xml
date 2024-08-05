@@ -29,6 +29,29 @@
     
     
     <entry>
+      <title>Ubuntu系统香港及国外服务器，校正时间为北京/上海</title>
+      <link href="/2024/08/06/Ubuntusj/"/>
+      <url>/2024/08/06/Ubuntusj/</url>
+      
+        <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><ul><li>购买的香港及海外服务器，默认时间都和国内不一致</li><li>可能会导致使用过程中出现问题，特别是拿来做 支付系统 方面的老板，时间不同步国内可能就出现支付成功不回调不跳转。</li></ul><h2 id="一、查看时区"><a href="#一、查看时区" class="headerlink" title="一、查看时区"></a>一、查看时区</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">date</span> -R</span><br></pre></td></tr></table></figure><p> <strong>+0000 表示第0时区，需要改成第八时区。<br>+0800 表示第八时区，也就是我们的使用时区。</strong> </p><h2 id="二、输入命令"><a href="#二、输入命令" class="headerlink" title="二、输入命令"></a>二、输入命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> tzselect</span><br><span class="line">1、选择：亚洲 Asia</span><br><span class="line"></span><br><span class="line">2、选择：中国 China</span><br><span class="line"></span><br><span class="line">3、选择：北京时间 Beijing Time</span><br><span class="line"></span><br><span class="line">4、确认验证：<span class="built_in">yes</span></span><br></pre></td></tr></table></figure><h2 id="三、复制文件到-etc目录下"><a href="#三、复制文件到-etc目录下" class="headerlink" title="三、复制文件到&#x2F;etc目录下"></a>三、复制文件到&#x2F;etc目录下</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">cp</span> /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</span><br></pre></td></tr></table></figure><h2 id="四、更新时间"><a href="#四、更新时间" class="headerlink" title="四、更新时间"></a>四、更新时间</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo ntpdate time.windows.com</span><br></pre></td></tr></table></figure><h2 id="如有报错"><a href="#如有报错" class="headerlink" title="如有报错"></a>如有报错</h2><p> <code>sudo: ntpdate: command not found</code> </p><h2 id="需要进行安装-ntpdate"><a href="#需要进行安装-ntpdate" class="headerlink" title="需要进行安装 ntpdate"></a>需要进行安装 <code>ntpdate</code></h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt-get install ntpdate</span><br></pre></td></tr></table></figure><h2 id="五、修改时间以后，修改硬件CMOS的时间"><a href="#五、修改时间以后，修改硬件CMOS的时间" class="headerlink" title="五、修改时间以后，修改硬件CMOS的时间"></a>五、修改时间以后，修改硬件CMOS的时间</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> hwclock --systohc</span><br></pre></td></tr></table></figure><h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><p> <strong>ubuntu</strong> 一般安装完用的是UTC时间，Java程序获取时会减8小时。</p><p> <strong>用 <code>timedatectl</code> 命令看一下：</strong> </p><p> <strong>这时要改成GMT时间</strong> </p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> timedatectl set-timezone Asia/Shanghai</span><br></pre></td></tr></table></figure>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> Ubuntu </tag>
+            
+            <tag> 服务器 </tag>
+            
+            <tag> 国内时间 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Ubuntu系统安装docker docker-compos 终端命令一键安装</title>
       <link href="/2024/08/06/Ubuntudocker/"/>
       <url>/2024/08/06/Ubuntudocker/</url>
