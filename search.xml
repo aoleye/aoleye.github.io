@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Cloudflare免费网站防护，普遍规则设置，CF防CC攻击规则，waf规则，cloudflare网站防攻击</title>
+      <link href="/2024/08/06/cloudflareccwaf1/"/>
+      <url>/2024/08/06/cloudflareccwaf1/</url>
+      
+        <content type="html"><![CDATA[<h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>网站趋于稳定，又迎来nginx调优，先和大家分享我CF的 WAF规则，因为这个是最有效的防御，能抵御大量脚本小子的恶意攻击流量，已经被我验证数月。</p><p>在海外做独立站电商网站首选CF的CDN服务，因为太强大了，没有之一。中小型需求不多直接免费到爽。接入后网站加速防护全全交给CF了。最稳的选择。</p><p>开始吧！</p><h2 id="进入-WAF配置页"><a href="#进入-WAF配置页" class="headerlink" title="进入 WAF配置页"></a>进入 WAF配置页</h2><ul><li><p>进入CF的后台，选择你要防御的站点域名。</p></li><li><p><a href="https://dash.cloudflare.com/login/">https://dash.cloudflare.com/login/</a></p></li><li><p>记得在DNS选项，开启小云朵。这就开启CDN了，后续防御规则才会生效。<br> <img src="https://tc.izhan.cc/i/2024/07/08/gqm1dk.jpeg" alt="Test"></p></li><li><p>选择安全性 WAF<br> <img src="https://tc.izhan.cc/i/2024/07/08/gqtgpk.jpeg" alt="Test"></p></li><li><p>四个WAF规则，一般大家就三个规则。放行自己，放行SEO爬虫，质询刻意流量。</p></li><li><p>添加规则<br> <img src="https://tc.izhan.cc/i/2024/07/08/grr6tm.jpeg" alt="Test"></p></li><li><p>选择正则表达式添加规则，复制规则保存即可。</p></li></ul><h2 id="放行爬虫seo和自己"><a href="#放行爬虫seo和自己" class="headerlink" title="放行爬虫seo和自己"></a>放行爬虫seo和自己</h2><ul><li><p>以下列出三个规则的正则表达式</p></li><li><p>第一个放行自己原站IP，跟相连有关的ip放行</p></li><li><p>IPV4和IPV6地址改成自己</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(ip.src eq <span class="number">192.168</span><span class="number">.7</span><span class="number">.17</span>) or (ip.src eq <span class="number">2901</span>:c080:<span class="number">1110</span>:<span class="number">4</span>c91:<span class="number">5400</span>:<span class="number">4f</span>f:feb8:<span class="number">130</span>a)...</span><br></pre></td></tr></table></figure></li><li><p>选择操作跳过按图设置，随后保存规则<br> <img src="https://tc.izhan.cc/i/2024/07/08/gug2uy.jpeg" alt="Test"></p></li><li><p>第二个放行SEO爬虫</p></li><li><p>无脑复制即可，无需修改，</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(cf.client.bot) or (http.user_agent contains <span class="string">&quot;duckduckgo&quot;</span>) or (http.user_agent contains <span class="string">&quot;facebookexternalhit&quot;</span>) or (http.user_agent contains <span class="string">&quot;Feedfetcher-Google&quot;</span>) or (http.user_agent contains <span class="string">&quot;LinkedInBot&quot;</span>) or (http.user_agent contains <span class="string">&quot;Mediapartners-Google&quot;</span>) or (http.user_agent contains <span class="string">&quot;msnbot&quot;</span>) or (http.user_agent contains <span class="string">&quot;Slackbot&quot;</span>) or (http.user_agent contains <span class="string">&quot;TwitterBot&quot;</span>) or (http.user_agent contains <span class="string">&quot;ia_archive&quot;</span>) or (http.user_agent contains <span class="string">&quot;yahoo&quot;</span>)...</span><br></pre></td></tr></table></figure></li><li><p>操作也选择跳过，随后保存</p></li></ul><h2 id="质询恶意流量规则"><a href="#质询恶意流量规则" class="headerlink" title="质询恶意流量规则"></a>质询恶意流量规则</h2><ul><li><p>至关重要。但也很简单。地域限制，HTTP版本限制都十分管用。在之前大佬的基础上进化规则。</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(cf.threat_score ge <span class="number">5</span> and not cf.client.bot) or (not http.request.version in &#123;<span class="string">&quot;HTTP/2&quot;</span> <span class="string">&quot;HTTP/3&quot;</span>&#125;) or (not ip.geoip.country in &#123;<span class="string">&quot;AU&quot;</span> <span class="string">&quot;CA&quot;</span> <span class="string">&quot;FR&quot;</span> <span class="string">&quot;DE&quot;</span> <span class="string">&quot;HK&quot;</span> <span class="string">&quot;IR&quot;</span> <span class="string">&quot;JP&quot;</span> <span class="string">&quot;KR&quot;</span> <span class="string">&quot;MY&quot;</span> <span class="string">&quot;SG&quot;</span> <span class="string">&quot;TW&quot;</span> <span class="string">&quot;GB&quot;</span> <span class="string">&quot;US&quot;</span> <span class="string">&quot;CN&quot;</span>&#125;)...</span><br></pre></td></tr></table></figure></li><li><p>这些大写字母是国家或地区的简称，在其中的都是放行的国家。如果你只在香港做业务可以只填写HK，其余的全部会进入质询拦截模式，俗称CF的5秒盾。<br> <img src="https://tc.izhan.cc/i/2024/07/08/gy9zwy.jpeg" alt="Test"></p></li><li><p>后续观察</p></li><li><p>这一波设置基本就ok了。可以放几天试试，观察放行和拦截情况。</p></li></ul><h2 id="频率限制"><a href="#频率限制" class="headerlink" title="频率限制"></a>频率限制</h2><ul><li>对了还有频率限制，也很关键。<br> <img src="https://tc.izhan.cc/i/2024/07/08/gziu7h.jpeg" alt="Test"><br> <img src="https://tc.izhan.cc/i/2024/07/08/gzj423.jpeg" alt="Test"><br> <img src="https://tc.izhan.cc/i/2024/07/08/gzj62f.jpeg" alt="Test"></li></ul><p>转载来自：<a href="https://blog.kejilion.pro/">https://blog.kejilion.pro</a>  效果自行考证。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 分享交流 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Cloudflare </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>宝塔面板国际版aaPanel安装保姆级教程,国际版宝塔安装,国际版宝塔一键安装命令</title>
       <link href="/2024/08/06/aaPanel/"/>
       <url>/2024/08/06/aaPanel/</url>
