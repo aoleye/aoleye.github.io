@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>你还在花钱买节点and代理节点？利用空闲服务器搭建翻墙节点，不影响宝塔面板不影响网站运营。妈妈再也不用担心我上网问题~</title>
+      <link href="/2024/08/07/xuimb/"/>
+      <url>/2024/08/07/xuimb/</url>
+      
+        <content type="html"><![CDATA[<h2 id="X-UI面板"><a href="#X-UI面板" class="headerlink" title="X-UI面板"></a>X-UI面板</h2><ul><li>作者开源项目地址 <a href="https://github.com/vaxilu/x-ui">https://github.com/vaxilu/x-ui</a></li><li>一键安装<code>x-ui面板</code>搭建翻墙节点，小火箭通用连接</li><li>服务器有效期多久，就能使用多久，剩下大笔买VPN节点代理的钱</li><li>支持多协议多用户的<code>xray</code>面板</li><li>小火箭连接成功截图：<br><img src="https://tc.izhan.cc/i/2024/05/01/141404.jpg" alt="Test"></li></ul><h2 id="功能介绍"><a href="#功能介绍" class="headerlink" title="功能介绍:"></a>功能介绍:</h2><ol><li>系统状态监控</li><li>支持多用户多协议，网页可视化操作</li><li>支持的协议：<code>vmess、vless、trojan、shadowsocks、dokodemo-door、socks、http</code></li><li>支持配置更多传输配置，流量统计，限制流量，限制到期时间，可自定义 xray 配置模板</li><li>支持<code>https</code>访问面板（自备域名 + ssl 证书）</li><li>支持一键SSL证书申请且自动续签，更多高级配置项，详见面板</li></ol><h2 id="安装-升级"><a href="#安装-升级" class="headerlink" title="安装&amp;升级:"></a>安装&amp;升级:</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash &lt;(curl -Ls https://raw.githubusercontent.com/vaxilu/x-ui/master/install.sh)</span><br></pre></td></tr></table></figure><p> <img src="https://tc.izhan.cc/i/2024/05/01/140848.png" alt="Test"><br> <img src="https://tc.izhan.cc/i/2024/05/01/140848_1.png" alt="Test"><br> <img src="https://tc.izhan.cc/i/2024/05/01/140849.png" alt="Test"> </p><h4>重点：搭建好后如果打不开，放行面板端口就可以。</h4><p><img src="https://tc.izhan.cc/i/2024/05/01/141019.png" alt="Test"> </p><h4>登录xui面板后先升级版本（建议最新版倒退一两个版本，会比较稳定，新版刚发布有时候不稳定），然后再添加入站（也就是节点）</h4><p><img src="https://tc.izhan.cc/i/2024/05/01/141108.png" alt="Test"><br><img src="https://tc.izhan.cc/i/2024/05/01/141158_1.png" alt="Test"> </p><h4>添加好节点后，还需要到服务器或宝塔放行端口，不然连接不上网络！</h4><p><img src="https://tc.izhan.cc/i/2024/05/01/141158.png" alt="Test"> </p><h4>xui面板可以和宝塔一起用，不影响你宝塔里面的网站。</h4><h4>手机小火箭扫一扫 导入节点直接使用</h4><p><img src="https://tc.izhan.cc/i/2024/05/01/141402.png" alt="Test"><br><img src="https://tc.izhan.cc/i/2024/05/01/141403.png" alt="Test"> </p><h2 id="搭建完毕"><a href="#搭建完毕" class="headerlink" title="搭建完毕~"></a>搭建完毕~</h2><p><strong>芜湖，成功科学上网</strong></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 分享交流 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 分享交流 </tag>
+            
+            <tag> 科学上网 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>浅谈博客系统的选择，WordPress还是Typecho，还是Hexo？</title>
       <link href="/2024/08/07/hexo2/"/>
       <url>/2024/08/07/hexo2/</url>
@@ -51,9 +78,9 @@
             
             <tag> 国际版宝塔 </tag>
             
-            <tag> 网站搭建 </tag>
-            
             <tag> 分享交流 </tag>
+            
+            <tag> 网站搭建 </tag>
             
         </tags>
       
@@ -77,6 +104,8 @@
       
       
         <tags>
+            
+            <tag> 分享交流 </tag>
             
             <tag> Cloudflare </tag>
             
@@ -109,6 +138,8 @@
             
             <tag> 国际版宝塔 </tag>
             
+            <tag> 分享交流 </tag>
+            
         </tags>
       
     </entry>
@@ -132,7 +163,13 @@
       
         <tags>
             
-            <tag> 分享交流，Hexo，Nodejs，Git </tag>
+            <tag> 分享交流 </tag>
+            
+            <tag> Hexo </tag>
+            
+            <tag> Nodejs </tag>
+            
+            <tag> Git </tag>
             
         </tags>
       
@@ -156,6 +193,8 @@
       
       
         <tags>
+            
+            <tag> 分享交流 </tag>
             
             <tag> Ubuntu </tag>
             
@@ -185,6 +224,8 @@
       
       
         <tags>
+            
+            <tag> 分享交流 </tag>
             
             <tag> Ubuntu </tag>
             
