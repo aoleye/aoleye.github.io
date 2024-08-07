@@ -15,8 +15,6 @@
           
           <category> 网站搭建 </category>
           
-          <category> 分享交流 </category>
-          
       </categories>
       
       
@@ -283,11 +281,11 @@
             
             <tag> Ubuntu </tag>
             
-            <tag> 分享交流 </tag>
-            
             <tag> 服务器 </tag>
             
             <tag> 国内时间 </tag>
+            
+            <tag> 分享交流 </tag>
             
         </tags>
       
@@ -314,9 +312,9 @@
             
             <tag> Ubuntu </tag>
             
-            <tag> Docker docker-compos </tag>
-            
             <tag> 分享交流 </tag>
+            
+            <tag> Docker docker-compos </tag>
             
         </tags>
       
