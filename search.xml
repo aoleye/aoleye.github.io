@@ -4,6 +4,39 @@
   
     
     <entry>
+      <title>halo博客快速部署,应该算是最详细的宝塔搭建教程,小白一眼就会的详细教程（图文）</title>
+      <link href="/2024/08/07/halo/"/>
+      <url>/2024/08/07/halo/</url>
+      
+        <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><ul><li><code>Halo</code>博客系统的宝塔部署教程</li><li>这个系统也是热门，人气比<code>Typecho</code>还高，不过我已经有了爱不释手的<code>Hexo</code>哈哈哈</li><li>全程详细的宝塔图文教程（包括绑定域名）</li><li>前两天搜了一下谷歌，发现宝塔部署<code>Halo</code>的只看到几篇文章教程，零零散散的也没配详细图文</li><li>有的纯小白如果漏了一步截图可能就蒙了，所以我来个全程图文~</li></ul><h2 id="一、宝塔拉取镜像并运行"><a href="#一、宝塔拉取镜像并运行" class="headerlink" title="一、宝塔拉取镜像并运行"></a>一、宝塔拉取镜像并运行</h2><ol><li><p>宝塔这个自己装好没问题吧，登录后在左边栏<code>docker</code>容器，点击安装<br><img src="https://tc.izhan.cc/i/2024/08/07/twptvo.png" alt="Test"></p></li><li><p>安装好docker我们通过搜索halo 选最多那个 拉取Halo镜像<br><img src="https://tc.izhan.cc/i/2024/08/07/twqa9y.png" alt="Test"></p></li><li><p>宝塔终端执行<code>halo安装命令</code>（创建容器）<code>2024.8.7Halo最新版本号为2.18</code></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -it -d --name halo -p 8090:8090 -v ~/.halo2:/root/.halo2 registry.fit2cloud.com/halo/halo:2.18</span><br></pre></td></tr></table></figure><p><img src="https://tc.izhan.cc/i/2024/08/07/twpv5t.png" alt="Test"></p></li></ol><h2 id="二、放行Halo端口"><a href="#二、放行Halo端口" class="headerlink" title="二、放行Halo端口"></a>二、放行Halo端口</h2><ol start="4"><li><code>Halo</code>默认的端口号是<code>8090</code>宝塔设置放行</li><li>需要注意的是：部分服务器商家可能还需要到服务器平台防火墙放行<br><img src="https://tc.izhan.cc/i/2024/08/07/twq6o3.png" alt="Test"></li></ol><h2 id="三、IP-端口号访问"><a href="#三、IP-端口号访问" class="headerlink" title="三、IP:端口号访问"></a>三、IP:端口号访问</h2><ol start="6"><li>因为还没绑定域名，所以我们运行成功后可以通过服务器<code>ip:8090</code>访问，例如ip是<code>1.1.1.1</code>，那么就是<code>1.1.1.1:8090</code>访问<br><img src="https://tc.izhan.cc/i/2024/08/07/twq6yo.png" alt="Test"></li></ol><h2 id="四、后台选择主题"><a href="#四、后台选择主题" class="headerlink" title="四、后台选择主题"></a>四、后台选择主题</h2><ol start="7"><li><p>登录后台后可在<code>Halo</code>官方应用中心选择一款喜欢的主题直接安装。<br><img src="https://tc.izhan.cc/i/2024/08/07/twqe3t.png" alt="Test"></p></li><li><p>测试主题首页效果<br><img src="https://tc.izhan.cc/i/2024/08/07/twqmoe.png" alt="Test"></p></li></ol><h2 id="五、绑定域名设置反代"><a href="#五、绑定域名设置反代" class="headerlink" title="五、绑定域名设置反代"></a>五、绑定域名设置反代</h2><ol start="9"><li><p>回到宝塔，添加一个站点，绑定自己的域名，不需要设置数据库和PHP<br><img src="https://tc.izhan.cc/i/2024/08/07/twqi0u.png" alt="Test"></p></li><li><p>然后记得<code>把防跨站关了</code>，还有给自己<code>配个证书</code>。<code>强制HTTPS打开</code>，<code>这三个步骤</code>最最最基本的不需要多说了吧？！</p></li><li><p>点站点域名设置，点开反向代理设置，<code>Halo</code>默认端口是<code>8090</code>，那么应设置为：<code>http://127.0.0.1:8090</code> 其他不用管，点保存即可<br><img src="https://tc.izhan.cc/i/2024/08/07/twptyy.png" alt="Test"></p></li><li><p>设置好反代后直接浏览器访问自己绑定的域名，ojbk成功搭建<code>halo</code>并绑定域名，你是最靓的仔了<br><img src="https://tc.izhan.cc/i/2024/08/07/twquj7.png" alt="Test"><br><img src="https://tc.izhan.cc/i/2024/08/07/twqk9s.png" alt="Test"><br><img src="https://tc.izhan.cc/i/2024/08/07/twqr7e.png" alt="Test"></p></li></ol><h2 id="完结"><a href="#完结" class="headerlink" title="完结"></a>完结</h2><ul><li>本次教程用的主题叫<code>joe</code>宝塔面板为官方<code>海外版</code>（国际版）</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 网站搭建 </category>
+          
+          <category> 分享交流 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 分享交流 </tag>
+            
+            <tag> 宝塔面板 </tag>
+            
+            <tag> 国际版宝塔 </tag>
+            
+            <tag> 网站搭建 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Hexo更换新电脑后需要的迁移操作，备份文件及恢复方法（突然看到比较简单详细的相关文章，记录一下）</title>
       <link href="/2024/08/07/hexoxdn/"/>
       <url>/2024/08/07/hexoxdn/</url>
