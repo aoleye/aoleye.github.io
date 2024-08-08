@@ -4,6 +4,19 @@
   
     
     <entry>
+      <title>cloudflare2</title>
+      <link href="/2024/08/08/cloudflare2/"/>
+      <url>/2024/08/08/cloudflare2/</url>
+      
+        <content type="html"><![CDATA[]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>halo博客快速部署,应该算是最详细的宝塔搭建教程,小白一眼就会的详细教程（图文）</title>
       <link href="/2024/08/07/halo/"/>
       <url>/2024/08/07/halo/</url>
@@ -20,11 +33,11 @@
       
         <tags>
             
-            <tag> 分享交流 </tag>
-            
             <tag> 宝塔面板 </tag>
             
             <tag> 国际版宝塔 </tag>
+            
+            <tag> 分享交流 </tag>
             
             <tag> 网站搭建 </tag>
             
@@ -159,11 +172,11 @@
       
         <tags>
             
-            <tag> 分享交流 </tag>
-            
             <tag> 宝塔面板 </tag>
             
             <tag> 国际版宝塔 </tag>
+            
+            <tag> 分享交流 </tag>
             
             <tag> 网站搭建 </tag>
             
@@ -217,13 +230,13 @@
       
         <tags>
             
-            <tag> 分享交流 </tag>
-            
             <tag> 宝塔面板 </tag>
             
             <tag> aaPanel </tag>
             
             <tag> 国际版宝塔 </tag>
+            
+            <tag> 分享交流 </tag>
             
         </tags>
       
@@ -279,13 +292,13 @@
       
         <tags>
             
+            <tag> 分享交流 </tag>
+            
             <tag> Ubuntu </tag>
             
             <tag> 服务器 </tag>
             
             <tag> 国内时间 </tag>
-            
-            <tag> 分享交流 </tag>
             
         </tags>
       
@@ -310,9 +323,9 @@
       
         <tags>
             
-            <tag> Ubuntu </tag>
-            
             <tag> 分享交流 </tag>
+            
+            <tag> Ubuntu </tag>
             
             <tag> Docker docker-compos </tag>
             
