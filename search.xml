@@ -4,13 +4,27 @@
   
     
     <entry>
-      <title>cloudflare2</title>
+      <title>Cloudflare硬防规则，waf防御规则，cloudflare防cc攻击ddos攻击，实测防御规则</title>
       <link href="/2024/08/08/cloudflare2/"/>
       <url>/2024/08/08/cloudflare2/</url>
       
-        <content type="html"><![CDATA[]]></content>
+        <content type="html"><![CDATA[<h2 id="Cloudflare免费防御"><a href="#Cloudflare免费防御" class="headerlink" title="Cloudflare免费防御"></a>Cloudflare免费防御</h2><ul><li>这是来自2024.8.8号中午的测试</li><li>在某群里看到有没有要测压的，于是乎我发了我的网站出来，硬扛了半小时的访问请求，量不大不小，九百多万次数访问请求</li><li>并不是装逼被打，真是正好群里有人问有没有人要测压一下<br><img src="https://tc.izhan.cc/i/2024/08/08/p9tm8g.jpeg" alt="Test"></li></ul><h2 id="缓存清理-质询恶意流量"><a href="#缓存清理-质询恶意流量" class="headerlink" title="缓存清理 质询恶意流量"></a>缓存清理 质询恶意流量</h2><ul><li><p>在上图我们可以看到，请求次数910万（半小时）</p></li><li><p>接着看下分析图 <br> <img src="https://tc.izhan.cc/i/2024/08/08/pb7l7s.jpeg" alt="Test"></p></li><li><p>我们可以看到有超过99%的请求都已缓存，这个什么意思呢？就是别人的攻击都打在我设置的缓存规则上了</p></li><li><p>9.1M＝910万次数，实际被漏进来的只有3.6k三千几的次数，看着漏进来的可能觉得高，其实不然，相比之下在cloudflare设置好的规则下已经给你解决了99.8%的攻击，漏进来的只是九牛一毛</p></li><li><p>在此期间我的网站一直属于正常访问状态，由此可见我们的规则是有用的，如果没有用cloudflare规则，估计我的网站已经瘫痪了～<br> <img src="https://tc.izhan.cc/i/2024/08/08/pi5bfb.jpeg" alt="Test"><br> <img src="https://tc.izhan.cc/i/2024/08/08/pi58r4.jpeg" alt="Test"> </p></li><li><p>我的规则大概原理就是：先检查是否人机恶意流量访问，然后检测行为，刷新频率高直接阻止访问（正常访客是不会没事一直刷新你网站的），另外本人还配了静态缓存图片格式CSS和JS，让其规则达到最佳效果。所以别人的攻击都打在了缓存上，不痛不痒～</p></li></ul><h2 id="规则配置"><a href="#规则配置" class="headerlink" title="规则配置"></a>规则配置</h2><p><strong>在本站已经写过相关教程，可在本站搜索Cloudflare找到相关文章参考</strong></p><p><strong>没有绝对的防御，攻击脚本和规则代代更替，后面有更好的本站会分享出来</strong></p>]]></content>
       
       
+      <categories>
+          
+          <category> 分享交流 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 分享交流 </tag>
+            
+            <tag> Cloudflare </tag>
+            
+        </tags>
       
     </entry>
     
@@ -33,11 +47,11 @@
       
         <tags>
             
+            <tag> 分享交流 </tag>
+            
             <tag> 宝塔面板 </tag>
             
             <tag> 国际版宝塔 </tag>
-            
-            <tag> 分享交流 </tag>
             
             <tag> 网站搭建 </tag>
             
@@ -172,11 +186,11 @@
       
         <tags>
             
+            <tag> 分享交流 </tag>
+            
             <tag> 宝塔面板 </tag>
             
             <tag> 国际版宝塔 </tag>
-            
-            <tag> 分享交流 </tag>
             
             <tag> 网站搭建 </tag>
             
@@ -230,13 +244,13 @@
       
         <tags>
             
+            <tag> 分享交流 </tag>
+            
             <tag> 宝塔面板 </tag>
             
             <tag> aaPanel </tag>
             
             <tag> 国际版宝塔 </tag>
-            
-            <tag> 分享交流 </tag>
             
         </tags>
       
@@ -292,9 +306,9 @@
       
         <tags>
             
-            <tag> 分享交流 </tag>
-            
             <tag> Ubuntu </tag>
+            
+            <tag> 分享交流 </tag>
             
             <tag> 服务器 </tag>
             
@@ -323,11 +337,11 @@
       
         <tags>
             
-            <tag> 分享交流 </tag>
-            
             <tag> Ubuntu </tag>
             
             <tag> Docker docker-compos </tag>
+            
+            <tag> 分享交流 </tag>
             
         </tags>
       
