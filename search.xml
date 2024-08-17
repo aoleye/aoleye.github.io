@@ -4,6 +4,33 @@
   
     
     <entry>
+      <title>码支付源码，码支付收款系统源码，个人码支付源码，个人收款码支付系统，支付宝微信收款码对接网站支付</title>
+      <link href="/2024/08/17/mzfxt/"/>
+      <url>/2024/08/17/mzfxt/</url>
+      
+        <content type="html"><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><ul><li>本篇码支付系统为个人版，没有给人开商户功能</li><li>多个收款码，可以在后台添加多个通道，免挂或者使用软件监听订单收款</li><li>免挂不太稳定，建议使用一台云电脑，或者便宜的安卓手机。</li><li>屏幕要保持24小时不息屏不挂机，不然的话客户扫码支付没法确定是否已收到相同的订单金额</li></ul><h2 id="支付页面"><a href="#支付页面" class="headerlink" title="支付页面"></a>支付页面</h2><ul><li>支付页面有四款，后台可换。</li></ul><p><img src="https://tc.izhan.cc/i/2024/08/17/e4qyfe.png"><br><img src="https://tc.izhan.cc/i/2024/08/17/e4r8hj.png"> </p><h2 id="后台配置通道"><a href="#后台配置通道" class="headerlink" title="后台配置通道"></a>后台配置通道</h2><ul><li>QQ，微信，支付宝，上传收款二维码即可，然后使用监听订单金额软件。</li><li>数字银行（没测试过数字银行）</li></ul><p><img src="https://tc.izhan.cc/i/2024/08/17/e4qn33.png"><br><img src="https://tc.izhan.cc/i/2024/08/17/e4qq0b.png"><br><img src="https://tc.izhan.cc/i/2024/08/17/e4qs40.png"><br><img src="https://tc.izhan.cc/i/2024/08/17/e4qaxw.png"> </p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 网站搭建 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 分享交流 </tag>
+            
+            <tag> 网站搭建 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>独角数卡用户版，带用户中心版，优化图标对齐排列，基于原用户版源码仿了一下彩虹商品列表排列，对齐用户中心，修复列表模板不能搜索商品问题</title>
       <link href="/2024/08/12/dujiaokauser/"/>
       <url>/2024/08/12/dujiaokauser/</url>
