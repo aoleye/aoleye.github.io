@@ -4,6 +4,110 @@
   
     
     <entry>
+      <title>从宝塔迁移到1Panel的踩坑日志，aaPanel宝塔面板迁移换到1Panel可能遇到的错误，踩坑日志</title>
+      <link href="/2024/08/28/btqy1panel/"/>
+      <url>/2024/08/28/btqy1panel/</url>
+      
+        <content type="html"><![CDATA[<p> <img src="https://tc.izhan.cc/i/2024/08/24/46zeku.png"> </p><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><ul><li>隔三差五的更新，小毛病问题不断，有种莫名的拆东墙补西墙的蜜汁行为。</li><li>没错，就是那个小绿ico图标宝塔~</li><li>终于在8.24号我受不了了，<code>aaPanel</code>最新版7.0.8，PHP一直安装不上我需要的拓展（多个都装不上，秒失败自动取消）</li><li>上一个版本7.0.7是反向代理只能手动去配置文件添加，平常的小毛病例子就不说了，就有点拆东墙补西墙，修好这个坏那个~</li><li>于是连上了5G网，看了一下评论，<code>1Panel</code>反响还不错，至少我看到的对比帖子都说1Panel要比宝塔好点，于是乎于是乎，直接动手：备份数据&gt;迁移至<code>1Panel</code></li></ul><h2 id="1Panel面板安装"><a href="#1Panel面板安装" class="headerlink" title="1Panel面板安装"></a>1Panel面板安装</h2><ul><li><code>1Panel</code>开源项目地址<code>https://github.com/1Panel-dev/1Panel</code></li><li>发布官网是<code>www.1panel.cn</code></li><li>一键安装命令：</li><li><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -sSL https:<span class="comment">//resource.fit2cloud.com/1panel/package/quick_start.sh -o quick_start.sh &amp;&amp; sudo bash quick_start.sh</span></span><br></pre></td></tr></table></figure></li></ul></br><h2 id="部署可能遇到的问题"><a href="#部署可能遇到的问题" class="headerlink" title="部署可能遇到的问题"></a>部署可能遇到的问题</h2><ul><li>按照官方文档安装好面板后，可以在应用商店安装我们需要的应用</li><li>需要注意域名设置的那里，运行用户&#x2F;组，如果有显示红色字体，就需要要点一下保存</li><li><img src="https://tc.izhan.cc/i/2024/08/24/46zhyb.png"></li></ul></br><ul><li>我在迁移自己<code>Typecho</code>博客的时候遇到的问题如下</li><li>上传好压缩包，配置数据库信息的时候：</li><li><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">......</span><br><span class="line"><span class="variable">$db</span> = <span class="keyword">new</span> <span class="title class_">\Typecho\Db</span>(<span class="string">&#x27;Pdo_Mysql&#x27;</span>, <span class="string">&#x27;数据库表_&#x27;</span>);</span><br><span class="line"><span class="variable">$db</span>-&gt;<span class="title function_ invoke__">addServer</span>(<span class="keyword">array</span> (</span><br><span class="line">  <span class="string">&#x27;host&#x27;</span> =&gt; <span class="string">&#x27;mysql&#x27;</span>,  ##这里原先是默认的localhost</span><br><span class="line">  <span class="string">&#x27;port&#x27;</span> =&gt; <span class="number">3306</span>,</span><br><span class="line">......</span><br></pre></td></tr></table></figure></li><li><img src="https://tc.izhan.cc/i/2024/08/24/46zanz.png"></li><li>需要把默认的<code>localhost</code>改成<code>mysql</code></li><li><img src="https://tc.izhan.cc/i/2024/08/24/46za6s.png"></li><li>否则导入了对应的数据库也显示无法连接，或者是找不到数据库等等问题…</li><li>注：仅为迁移<code>typecho</code>博客的时候出现的问题</li></ul></br><h2 id="Mysql和Redis问题"><a href="#Mysql和Redis问题" class="headerlink" title="Mysql和Redis问题"></a>Mysql和Redis问题</h2><ul><li>迁移好博客后，我尝试搭建了一下独角数卡系统，跟<code>EPUSDT</code></li><li>没错，还是数据库配置问题…</li><li>在访问安装独角的时候，让你填写的数据库信息，默认数据库地址是<code>127.0.0.1</code>，介于刚刚我迁移博客的时候踩了一下坑，所以想都不用想，这里也填上了容器信息的<code>mysql</code></li><li>然后下面的<code>Redis</code>信息，以前宝塔安装独角是不用管不填就行，到了<code>1panel</code>就不行了，需要填上信息…</li><li>连接地址也看容器信息，我这里是<code>Redis</code>，然后在安装<code>Redis</code>应用的时候，<code>1Panel</code>让我们设置的密码也要填写上</li><li>对了，在安装运行环境的时候，记得要自己手动安装拓展，没有看到可以手动搜索<code>安装独角需要的拓展</code>~</li><li><img src="https://tc.izhan.cc/i/2024/08/24/478ag9.png"></li></ul></br><ul><li>搭建EPUSDT可能也就进程守护的问题吧</li><li>贴上官方文档 <a href="https://1panel.cn/docs/user_manual/toolbox/supervisor/">https://1panel.cn/docs/user_manual/toolbox/supervisor/</a></li><li>执行安装进程守护命令，然后位置在<code>工具箱</code>里面！！！</li><li>首先必须<code>执行初始化</code></li><li>在<code>工具箱工具箱工具箱</code>！！！</li><li><img src="https://tc.izhan.cc/i/2024/08/24/57tanq.png"></li></ul><h2 id="完结"><a href="#完结" class="headerlink" title="完结"></a>完结</h2><ul><li>写的一般，目前迁移博客跟搭建独角+Epusdt遇到的就这些问题。</li><li>搭建部署其他项目遇到问题需要自己找答案了</li></ul>]]></content>
+      
+      
+      <categories>
+          
+          <category> 交流分享 </category>
+          
+          <category> 网站搭建 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 网站搭建 </tag>
+            
+            <tag> 宝塔面板 </tag>
+            
+            <tag> aaPanel </tag>
+            
+            <tag> 交流分享 </tag>
+            
+            <tag> 1Panel面板 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Linux服务器curl命令不能用，curl命令报错处理方法，Centos/Ubuntu/Debian服务器curl命令安装，curl错误命令不能使用</title>
+      <link href="/2024/08/28/linux-curl/"/>
+      <url>/2024/08/28/linux-curl/</url>
+      
+        <content type="html"><![CDATA[<h2 id="首先"><a href="#首先" class="headerlink" title="首先"></a>首先</h2><p>确保您已正确安装了curl命令。您可以在终端中使用以下命令检查<code>curl</code>是否已安装<code>curl</code></p><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl –version</span><br></pre></td></tr></table></figure><p> <strong>如果未安装curl，您可以使用以下命令来安装：</strong> </p><h2 id="对于Debian-Ubuntu系统："><a href="#对于Debian-Ubuntu系统：" class="headerlink" title="对于Debian&#x2F;Ubuntu系统："></a>对于Debian&#x2F;Ubuntu系统：</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo apt-get install curl</span><br></pre></td></tr></table></figure><h2 id="对于CentOS-Fedora系统："><a href="#对于CentOS-Fedora系统：" class="headerlink" title="对于CentOS&#x2F;Fedora系统："></a>对于CentOS&#x2F;Fedora系统：</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install curl</span><br></pre></td></tr></table></figure><p>安装完成后，您可以再次使用<code>curl –version</code>命令来验证安装是否成功。</p><p>如果您已正确安装curl，而且仍然无法使用curl命令，可能是由于以下原因之一：</p><ol><li><p>您的系统中没有该命令的可执行文件。您可以尝试重新安装curl命令，或者从官方网站下载最新版本。</p></li><li><p>curl命令路径未添加到系统的环境变量中。您可以通过编辑<code>~/.bashrc</code>或<code>~/.bash_profile</code>文件，并将以下行添加到文件末尾：</p></li></ol><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export PATH=<span class="variable">$PATH</span>:/path/to/curl</span><br></pre></td></tr></table></figure><p>请将<code>/path/to/curl</code>替换为<code>curl</code>命令实际安装的路径。</p><ol start="3"><li>您的系统上存在与<code>curl</code>命令冲突的其他程序。您可以使用以下命令来查找并确认是否存在其他具有相同名称的程序：</li></ol><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">which curl</span><br></pre></td></tr></table></figure><p>如果输出多个路径，则可能存在冲突。您可以通过更改系统的环境变量<code>PATH</code>来优先使用您想使用的curl命令。</p><ol start="4"><li>您可能没有足够的权限来运行<code>curl</code>命令。请确保您以超级用户或具有足够权限的用户身份运行<code>curl</code>命令。</li></ol><p>总之，如果您遇到问题仍然无法解决，请提供更多相关信息，以便能够提供更具体的帮助。</p><h2 id="完结"><a href="#完结" class="headerlink" title="完结"></a>完结</h2>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 分享交流 </tag>
+            
+            <tag> 服务器命令 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>新人小白域名托管到cloudflare，域名托管绑定cloudflare，域名cloudflare网站免费防御CDN，域名免费防御CDN</title>
+      <link href="/2024/08/28/xbcloudflare/"/>
+      <url>/2024/08/28/xbcloudflare/</url>
+      
+        <content type="html"><![CDATA[<p>刚购买好的域名，如何绑定托管到cloudflare？<br>网站域名免费防御CDN-cloudflare</p><h2 id="开始："><a href="#开始：" class="headerlink" title="开始："></a>开始：</h2><ol><li>你需要先注册一个cloudflare账号 <a href="https://cloudflare.com/">https://cloudflare.com</a></li><li>注册好后会提示你添加域名<br><img src="https://tc.izhan.cc/i/2024/08/26/3fiypj.png"></li></ol></br><ol start="3"><li>添加后选择免费计划<br><img src="https://tc.izhan.cc/i/2024/08/26/3fj44n.png"><br><img src="https://tc.izhan.cc/i/2024/08/26/3fj25z.png"></li></ol></br><ol start="4"><li>下滑找到cloudflare提供给我们的两段地址<br><img src="https://tc.izhan.cc/i/2024/08/26/3fjb4f.png"></li></ol></br><ol start="5"><li>打开我们的域名平台，域名管理（这里以godaddy为例）其他域名平台基本差不多，找到域名管理就行<br><img src="https://tc.izhan.cc/i/2024/08/26/3fivkk.png"></li></ol></br><ol start="6"><li>更改名称服务器（中文翻译过来是这个名字）<br><img src="https://tc.izhan.cc/i/2024/08/26/3fiwzf.png"></li></ol></br><p>7.把刚刚cloudflare给我们的两段地址复制粘贴过来更改掉默认的<br> <img src="https://tc.izhan.cc/i/2024/08/26/3fjcri.png"></p></br><p>8.到这里我们就已经成功托管到cloudflare了，后面域名解析，绑定到服务器，我们只需要到cloudflare登录我们的账户进行解析绑定就行，就不需要到域名平台了（因为我们已经托管到cloudflare了），后面不需要cloudflare了可以直接在域名平台删掉名称服务器，改回域名平台默认的两个地址就行</p></br><h2 id="解析域名"><a href="#解析域名" class="headerlink" title="解析域名"></a>解析域名</h2><ol start="9"><li>托管到cloudflare后，我们到cloudflare里面解析绑定服务器<br><img src="https://tc.izhan.cc/i/2024/08/26/3mf2cq.png"><br><img src="https://tc.izhan.cc/i/2024/08/26/3fk4mn.png"></li></ol><h2 id="至此完结"><a href="#至此完结" class="headerlink" title="至此完结"></a>至此完结</h2>]]></content>
+      
+      
+      <categories>
+          
+          <category> 分享交流 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 分享交流 </tag>
+            
+            <tag> cloudflare </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>一款很好看的Java发卡系统，UI很好看的发卡系统源码，Java发卡，USDT发卡，USDT发卡源码，USDT支付发卡系统</title>
+      <link href="/2024/08/19/javafaka/"/>
+      <url>/2024/08/19/javafaka/</url>
+      
+        <content type="html"><![CDATA[<h2 id="这是一款Java开发的发卡系统"><a href="#这是一款Java开发的发卡系统" class="headerlink" title="这是一款Java开发的发卡系统"></a>这是一款Java开发的发卡系统</h2><ul><li>可发表文章，点赞</li><li>可设置商品批发满减价</li><li>可设置商品优惠价</li><li>后台超多支付接口（有USDT）</li><li>首页可放轮播大图广告</li><li>等等……</li><li>演示站：bm.gouwu.pro</li></ul><h2 id="电脑端展示："><a href="#电脑端展示：" class="headerlink" title="电脑端展示："></a>电脑端展示：</h2><p><img src="https://tc.izhan.cc/i/2024/08/19/kj3a28.png" alt="Test"><br><img src="https://tc.izhan.cc/i/2024/08/19/kj3o9l.png" alt="Test"><br><img src="https://tc.izhan.cc/i/2024/08/19/kj3m76.png" alt="Test"> </p><h2 id="手机端展示："><a href="#手机端展示：" class="headerlink" title="手机端展示："></a>手机端展示：</h2><p><img src="https://tc.izhan.cc/i/2024/08/19/kjs3p2.png" alt="Test"><br><img src="https://tc.izhan.cc/i/2024/08/19/kjsai0.png" alt="Test"> </p>]]></content>
+      
+      
+      
+        <tags>
+            
+            <tag> 分享交流 </tag>
+            
+            <tag> 网站搭建 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>码支付源码，码支付收款系统源码，个人码支付源码，个人收款码支付系统，支付宝微信收款码对接网站支付</title>
       <link href="/2024/08/17/mzfxt/"/>
       <url>/2024/08/17/mzfxt/</url>
@@ -163,13 +267,13 @@
       
         <tags>
             
-            <tag> 宝塔面板 </tag>
-            
-            <tag> 国际版宝塔 </tag>
-            
             <tag> 分享交流 </tag>
             
             <tag> 网站搭建 </tag>
+            
+            <tag> 宝塔面板 </tag>
+            
+            <tag> 国际版宝塔 </tag>
             
         </tags>
       
@@ -182,7 +286,7 @@
       <link href="/2024/08/07/hexoxdn/"/>
       <url>/2024/08/07/hexoxdn/</url>
       
-        <content type="html"><![CDATA[<h2 id="新电脑必要安装"><a href="#新电脑必要安装" class="headerlink" title="新电脑必要安装"></a>新电脑必要安装</h2><ol><li>安装<code>Nodejs</code>和<code>Git</code>，方便后续编辑可再安装个<code>Visual Studio Code</code><br><strong>安装过程中重点记住两个点，一个是要添加 Git Bash Here 到右键菜单，一个是要把 Git 添加到全局变量。</strong></li><li>重新使用<code>Git生成新的ssh key</code>，重新添加至你的<code>Github</code>，使当前电脑的<code>Git</code>与你的<code>Github</code>相连<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;Github名字&quot;</span></span><br><span class="line">    git config --global user.email <span class="string">&quot;********@qq.com&quot;</span></span><br><span class="line">    ssh-keygen -t rsa -C <span class="string">&quot;********@qq.com&quot;</span></span><br></pre></td></tr></table></figure></li></ol><h2 id="迁移Hexo本地数据"><a href="#迁移Hexo本地数据" class="headerlink" title="迁移Hexo本地数据"></a>迁移Hexo本地数据</h2><ol start="3"><li>拷贝原电脑项目文件中的<code>_config.yml</code>，<code>themes</code>，<code>source</code>，<code>scaffolds</code>，<code>package.json</code>，<code>.gitignore</code>到新电脑新建的文件夹中</li><li>使用<code>git bash</code>进入此新建文件夹：</li><li>执行如下命令（为新电脑全局安装<code>hexo</code>，安装<code>Hexo</code>项目依赖，以及安装<code>hexo</code>插件<code>hexo-depolyer-git</code>）<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-cli -g </span><br><span class="line">    npm install</span><br><span class="line">    npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure></li></ol><h2 id="本地测试"><a href="#本地测试" class="headerlink" title="本地测试"></a>本地测试</h2><ol start="6"><li><p><code>Git bash</code>新建一个文章进行测试</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo new <span class="string">&quot;myNewTestBlog&quot;</span></span><br><span class="line">    hexo g</span><br><span class="line">    hexo s</span><br></pre></td></tr></table></figure></li><li><p>若本地成功部署，使用如下命令，部署至云端：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d</span><br></pre></td></tr></table></figure></li></ol><h2 id="可能会遇到的问题"><a href="#可能会遇到的问题" class="headerlink" title="可能会遇到的问题"></a>可能会遇到的问题</h2><p><strong>部署至云端时可能出现以下错误：</strong></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">bash: /dev/tty: No such device or address</span><br><span class="line">    error: failed to execute prompt script (<span class="built_in">exit</span> code 1)</span><br><span class="line">    fatal: could not <span class="built_in">read</span> Username <span class="keyword">for</span> <span class="string">&#x27;https://github.com&#x27;</span>: No error</span><br><span class="line">    FATAL Something<span class="string">&#x27;s wrong. Maybe you can find the solution here: http://hexo.io/docs/troubleshooting.html</span></span><br><span class="line"><span class="string">    Error: bash: /dev/tty: No such device or address</span></span><br><span class="line"><span class="string">    error: failed to execute prompt script (exit code 1)</span></span><br><span class="line"><span class="string">    fatal: could not read Username for &#x27;</span>https://github.com<span class="string">&#x27;: No error</span></span><br></pre></td></tr></table></figure><p><strong>解决方法：</strong></p><ol><li>将<code>_config.yml</code>中，原来加过的github源地址，改为下面形式（可能是更换新电脑，项目未克隆到本地，而出现的<code>github</code>项目验证的问题）<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">      <span class="built_in">type</span>: git</span><br><span class="line">      repository: ssh://git@github.com/你的Github名字/你的Github名字.github.io</span><br><span class="line">      (注意username有大写换为小写,这样才能识别)</span><br><span class="line">      branch: master</span><br></pre></td></tr></table></figure></li></ol><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul><li>要习惯性备份原电脑里的<code>Hexo</code>文件</li><li>网上还是有很多自动备份的方法，可以再深入研究一下</li><li><strong>概括</strong>：新电脑重新安装好必要的<code>Nodejs</code>，<code>Git</code>，使用<code>Git</code>重新生成<code>shh key</code>，并配置到自己的<code>Github</code>，然后重新安装<code>Hexo</code>及相关依赖还有插件</li></ul>]]></content>
+        <content type="html"><![CDATA[<h2 id="新电脑必要安装："><a href="#新电脑必要安装：" class="headerlink" title="新电脑必要安装："></a>新电脑必要安装：</h2><ol><li>安装<code>Nodejs</code>和<code>Git</code>，方便后续编辑可再安装个<code>Visual Studio Code</code><br><strong>安装过程中重点记住两个点，一个是要添加 Git Bash Here 到右键菜单，一个是要把 Git 添加到全局变量。</strong></li></ol><h2 id="迁移Hexo本地数据："><a href="#迁移Hexo本地数据：" class="headerlink" title="迁移Hexo本地数据："></a>迁移Hexo本地数据：</h2><ol start="2"><li>拷贝原电脑项目文件中的<code>_config.yml</code>，<code>themes</code>，<code>source</code>，<code>scaffolds</code>，<code>package.json</code>，<code>.gitignore</code>到新电脑新建的文件夹中</li><li>使用<code>git bash</code>进入此新建文件夹：</li><li>执行如下命令（为新电脑全局安装<code>hexo</code>，安装<code>Hexo</code>项目依赖，以及安装<code>hexo</code>插件<code>hexo-depolyer-git</code>）以此一条条执行：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-cli -g </span><br><span class="line">    npm install</span><br><span class="line">    npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure></li></ol><h2 id="生成新的连接秘钥："><a href="#生成新的连接秘钥：" class="headerlink" title="生成新的连接秘钥："></a>生成新的连接秘钥：</h2><ol start="5"><li>重新使用<code>Git生成新的ssh key</code>，重新添加至你的<code>Github</code>，使当前电脑的<code>Git</code>与你的<code>Github</code>相连<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;Github名字&quot;</span></span><br><span class="line">    git config --global user.email <span class="string">&quot;********@qq.com&quot;</span></span><br><span class="line">    ssh-keygen -t rsa -C <span class="string">&quot;********@qq.com&quot;</span></span><br></pre></td></tr></table></figure><img src="https://tc.izhan.cc/i/2024/08/28/vueh6y.png"></li></ol><h2 id="本地测试："><a href="#本地测试：" class="headerlink" title="本地测试："></a>本地测试：</h2><ol start="6"><li><code>Git bash</code>新建一个文章进行测试</li></ol><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo new <span class="string">&quot;myNewTestBlog&quot;</span></span><br><span class="line">    hexo g</span><br><span class="line">    hexo s</span><br></pre></td></tr></table></figure><ol start="7"><li>若本地成功部署，使用如下命令，部署至云端：</li></ol><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo d</span><br></pre></td></tr></table></figure><h2 id="可能会遇到的问题："><a href="#可能会遇到的问题：" class="headerlink" title="可能会遇到的问题："></a>可能会遇到的问题：</h2><ul><li>在重新执行hexo部署命令时发生以下错误：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-cli -g</span><br><span class="line">npm error code CERT_HAS_EXPIRED</span><br><span class="line">npm error errno CERT_HAS_EXPIRED</span><br><span class="line">npm error request to https://registry.npm.taobao.org/hexo-cli failed, reason: certificate has expired</span><br><span class="line">npm error A complete <span class="built_in">log</span> of this run can be found <span class="keyword">in</span>: C:\Users\JiuGe\AppData\Local\npm-cache\_logs\2024-08-28T11_02_08_553Z-debug-0.log</span><br></pre></td></tr></table></figure></li><li>这是因为证书原因，最直接的解决办法：关闭 npm ssl 严格证书检查<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="built_in">set</span> strict-ssl <span class="literal">false</span></span><br></pre></td></tr></table></figure></li><li>执行完这条命令后再重新部署hexo，神奇功效。</li></ul><p><strong>部署至云端时若出现以下错误：</strong></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">bash: /dev/tty: No such device or address</span><br><span class="line">    error: failed to execute prompt script (<span class="built_in">exit</span> code 1)</span><br><span class="line">    fatal: could not <span class="built_in">read</span> Username <span class="keyword">for</span> <span class="string">&#x27;https://github.com&#x27;</span>: No error</span><br><span class="line">    FATAL Something<span class="string">&#x27;s wrong. Maybe you can find the solution here: http://hexo.io/docs/troubleshooting.html</span></span><br><span class="line"><span class="string">    Error: bash: /dev/tty: No such device or address</span></span><br><span class="line"><span class="string">    error: failed to execute prompt script (exit code 1)</span></span><br><span class="line"><span class="string">    fatal: could not read Username for &#x27;</span>https://github.com<span class="string">&#x27;: No error</span></span><br></pre></td></tr></table></figure><p><strong>解决方法：</strong></p><ol><li>将<code>_config.yml</code>中，原来加过的github源地址，改为下面形式（可能是更换新电脑，项目未克隆到本地，而出现的<code>github</code>项目验证的问题）<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">      <span class="built_in">type</span>: git</span><br><span class="line">      repository: ssh://git@github.com/你的Github名字/你的Github名字.github.io</span><br><span class="line">      (注意username有大写换为小写,这样才能识别)</span><br><span class="line">      branch: master</span><br></pre></td></tr></table></figure></li></ol><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ul><li>要习惯性备份原电脑里的<code>Hexo</code>文件</li><li>网上还是有很多自动备份的方法，可以再深入研究一下</li><li><strong>概括</strong>：新电脑重新安装好必要的<code>Nodejs</code>，<code>Git</code>，使用<code>Git</code>重新生成<code>shh key</code>，并配置到自己的<code>Github</code>，然后重新安装<code>Hexo</code>及相关依赖还有插件</li></ul>]]></content>
       
       
       <categories>
@@ -302,13 +406,13 @@
       
         <tags>
             
-            <tag> 宝塔面板 </tag>
-            
-            <tag> 国际版宝塔 </tag>
-            
             <tag> 分享交流 </tag>
             
             <tag> 网站搭建 </tag>
+            
+            <tag> 宝塔面板 </tag>
+            
+            <tag> 国际版宝塔 </tag>
             
         </tags>
       
@@ -360,13 +464,13 @@
       
         <tags>
             
+            <tag> 分享交流 </tag>
+            
             <tag> 宝塔面板 </tag>
             
             <tag> aaPanel </tag>
             
             <tag> 国际版宝塔 </tag>
-            
-            <tag> 分享交流 </tag>
             
         </tags>
       
@@ -395,10 +499,6 @@
             
             <tag> Hexo </tag>
             
-            <tag> Nodejs </tag>
-            
-            <tag> Git </tag>
-            
         </tags>
       
     </entry>
@@ -422,9 +522,9 @@
       
         <tags>
             
-            <tag> 分享交流 </tag>
-            
             <tag> Ubuntu </tag>
+            
+            <tag> 分享交流 </tag>
             
             <tag> 服务器 </tag>
             
@@ -453,11 +553,11 @@
       
         <tags>
             
-            <tag> 分享交流 </tag>
-            
             <tag> Ubuntu </tag>
             
             <tag> Docker docker-compos </tag>
+            
+            <tag> 分享交流 </tag>
             
         </tags>
       
